@@ -1,0 +1,22 @@
+{
+  "name": "barbearia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "typescript-eslint": "^8.22.0",
+    "vitest": "^1.6.1"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  }
+}
