@@ -1,11 +1,6 @@
-import { BarberProps } from "../barber/barber";
-import { OwnerProps } from "../owner/owner";
-
 export interface HallProps {
   name: string;
   cnpj: string;
-  owner: OwnerProps;
-  barber: BarberProps;
 }
 
 export class Hall {
