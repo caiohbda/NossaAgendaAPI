@@ -26,4 +26,8 @@ export class Hall {
   get owner() {
     return this.owner;
   }
+
+  constructor(props: HallProps) {
+    this.props = props;
+  }
 }
