@@ -14,14 +14,6 @@ export class Hall {
     return this.props.cnpj;
   }
 
-  get barber() {
-    return this.barber;
-  }
-
-  get owner() {
-    return this.owner;
-  }
-
   constructor(props: HallProps) {
     this.props = props;
   }
