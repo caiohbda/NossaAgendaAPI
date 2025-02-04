@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto'
+
 export interface AppointmentProps {
   customer: string;
   startsAt: Date;
@@ -6,9 +8,14 @@ export interface AppointmentProps {
 
 export class Appointment {
   private props: AppointmentProps;
+  private _id: string;
 
   get customer() {
     return this.props.customer;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get startsAt() {
@@ -30,5 +37,6 @@ export class Appointment {
       throw new Error("invalid date");
     }
     this.props = props;
+    this._id = randomUUID();
   }
 }

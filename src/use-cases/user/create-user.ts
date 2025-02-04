@@ -1,7 +1,7 @@
 import { User } from "../../entities/user/user";
 import { UserRepository } from "../../repositories/users-repository";
 
-interface CreateUserResquest {
+export interface CreateUserResquest {
   name: string;
   cpf: string;
   password: string;

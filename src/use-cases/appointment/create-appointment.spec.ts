@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CreateAppointment } from "../create-appointment";
+import { CreateAppointment } from "../appointment/create-appointment";
 import { Appointment } from "../../entities/appointment/appointment";
 import { getFutureDate } from "../../tests/utils/get-future-date";
 import { InMemoryAppointmentsRepository } from "../../repositories/in-memory/in-memory-appointments";

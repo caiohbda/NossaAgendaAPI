@@ -18,7 +18,7 @@ test("create an appointment", () => {
 
 test("cannot create an appointment with end date before start date", () => {
   const startsAt = getFutureDate("2025-03-14");
-  const endsAt = getFutureDate("2025-03-13"); // Correção: endsAt antes de startsAt para falhar corretamente
+  const endsAt = getFutureDate("2025-03-13");
 
   expect(() => {
     return new Appointment({
