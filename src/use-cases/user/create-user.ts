@@ -28,6 +28,8 @@ export class CreateUser {
 
     await this.userRepository.create(user);
 
+    console.log("usuario criado com sucesso: ", user);
+
     return user;
   }
 }
