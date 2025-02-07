@@ -8,7 +8,7 @@ export class GetAllUsersController {
   async handle(req: Request, res: Response): Promise<Response> {
     const getAllUsersUseCase = new GetAllUsers(this.userRepository);
     const users = await getAllUsersUseCase.execute();
-    console.log("Usuários retornados:", users);
+
     return res.json(users);
   }
 }
