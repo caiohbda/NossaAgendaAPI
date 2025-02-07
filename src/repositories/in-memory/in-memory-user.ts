@@ -11,4 +11,14 @@ export class InMemoryUsersRepository implements UserRepository {
   async getAll(): Promise<User[]> {
     return this.items;
   }
+
+  async delete(id: string): Promise<void> {
+    const index = this.items.findIndex((user) => user.id === id);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+      console.log(`Usuário com ID ${id} excluído com sucesso.`);
+    } else {
+      throw new Error("Usuário não foi encontrado");
+    }
+  }
 }

@@ -1,10 +1,23 @@
-import { Router } from "express";
-import { createUserRoutes } from "./users/create-user-routes";
-import { getUsersRoutes } from "./users/get-all-users-routes";
+import "dotenv/config";
+import express from "express";
+import { createUserRoutes } from "../routes/users/create-user-routes";
+import { getUsersRoutes } from "infra/routes/users/get-all-users-routes";
+import { InMemoryUsersRepository } from "../../repositories/in-memory/in-memory-user";
+import { deleteUserRoutes } from "infra/routes/users/delete-user-routes";
 
-const router = Router();
+const userRepository = new InMemoryUsersRepository();
 
-router.use("/v1/users", createUserRoutes);
-router.use("/v1/users", getUsersRoutes);
+const app = express();
 
-export { router };
+app.use(express.json());
+app.use("/users", createUserRoutes(userRepository));
+app.use("/users", getUsersRoutes(userRepository));
+app.use("/users", deleteUserRoutes(userRepository));
+
+const PORT = 5000;
+
+app.listen(PORT, () => {
+  console.log(`Express app listening on port ${PORT}`);
+});
+
+export { app };

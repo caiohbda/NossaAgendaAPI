@@ -1,6 +1,7 @@
-import { randomUUID } from 'node:crypto'
+import { randomUUID } from "node:crypto";
 
 export interface UserProps {
+  id: string;
   name: string;
   cpf: string;
   password: string;
@@ -8,31 +9,43 @@ export interface UserProps {
 }
 
 export class User {
-  private _id: string;
-  private props: UserProps;
+  private readonly props: UserProps;
 
-  get name() {
+  get id(): string {
+    return this.props.id;
+  }
+
+  get name(): string {
     return this.props.name;
   }
 
-  get id() {
-    return this._id;
-  }
-
-  get cpf() {
+  get cpf(): string {
     return this.props.cpf;
   }
 
-  get password() {
+  get password(): string {
     return this.props.password;
   }
 
-  get role() {
+  get role(): string {
     return this.props.role;
   }
 
-  constructor(props: UserProps) {
-    this.props = props;
-    this._id = randomUUID();
+  constructor(props: Omit<UserProps, "id">) {
+    this.validateCpf(props.cpf);
+    this.validatePassword(props.password);
+    this.props = { id: randomUUID(), ...props };
+  }
+
+  private validateCpf(cpf: string): void {
+    if (!/\d{11}/.test(cpf)) {
+      throw new Error("CPF inválido");
+    }
+  }
+
+  private validatePassword(password: string): void {
+    if (password.length < 6) {
+      throw new Error("A senha deve ter pelo menos 6 caracteres");
+    }
   }
 }
