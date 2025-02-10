@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { DeleteUserFactory } from "../../../factory/DeleteUserFactory";
+import { DeleteUserFactory } from "../../../factory/users/DeleteUserFactory";
 import { InMemoryUsersRepository } from "../../../repositories/in-memory/in-memory-user";
 
 export const deleteUserRoutes = (userRepository: InMemoryUsersRepository) => {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CreateUserFactory } from "../../../factory/CreateUserFactory";
+import { CreateUserFactory } from "../../../factory/users/CreateUserFactory";
 import { InMemoryUsersRepository } from "../../../repositories/in-memory/in-memory-user";
 
 export const createUserRoutes = (userRepository: InMemoryUsersRepository) => {

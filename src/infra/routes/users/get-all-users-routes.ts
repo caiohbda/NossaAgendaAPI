@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { GetAllUsersController } from "../../../controllers/GetAllUsersController";
+import { GetAllUsersController } from "../../../controllers//users/GetAllUsersController";
 import { InMemoryUsersRepository } from "repositories/in-memory/in-memory-user";
 
 export const getUsersRoutes = (userRepository: InMemoryUsersRepository) => {
