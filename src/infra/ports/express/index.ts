@@ -4,6 +4,7 @@ import { createUserRoutes } from "../../routes/users/create-user-routes";
 import { getUsersRoutes } from "infra/routes/users/get-all-users-routes";
 import { InMemoryUsersRepository } from "../../../repositories/in-memory/in-memory-user";
 import { deleteUserRoutes } from "infra/routes/users/delete-user-routes";
+import { findUserByIdRoutes } from "infra/routes/users/find-by-id-routes";
 
 const userRepository = new InMemoryUsersRepository();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/users", createUserRoutes(userRepository));
 app.use("/users", getUsersRoutes(userRepository));
 app.use("/users", deleteUserRoutes(userRepository));
+app.use("/users", findUserByIdRoutes(userRepository));
 
 const PORT = 5000;
 

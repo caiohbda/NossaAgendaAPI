@@ -21,4 +21,8 @@ export class InMemoryUsersRepository implements UserRepository {
       throw new Error("Usuário não foi encontrado");
     }
   }
+
+  async findById(id: string): Promise<User | undefined> {
+    return this.items.find((user) => user.id === id);
+  }
 }
