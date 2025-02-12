@@ -22,7 +22,10 @@ app.use("/users", deleteUserRoutes(userRepository));
 app.use("/users", findUserByIdRoutes(userRepository));
 app.use("/users", updateUserRoutes(userRepository));
 
-app.use("/appointment", createAppointmentRoutes(appointmentRepository));
+app.use(
+  "/appointment",
+  createAppointmentRoutes(appointmentRepository, userRepository)
+);
 app.use("/appointment", getAllAppointmentsRoutes(appointmentRepository));
 
 const PORT = 5000;

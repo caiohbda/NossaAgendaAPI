@@ -8,9 +8,12 @@ export class CreateAppointmentController {
   constructor(private readonly usecase: CreateAppointment) {}
 
   async handle(req: Request, res: Response): Promise<Response> {
-    const { customer, startsAt, endsAt } = req.body as CreateAppointmentRequest;
+    const { customerId, barberId, startsAt, endsAt } =
+      req.body as CreateAppointmentRequest;
 
-    const data = { customer, startsAt, endsAt };
+    console.log("Received data:", { customerId, barberId, startsAt, endsAt });
+
+    const data = { customerId, barberId, startsAt, endsAt };
 
     await this.usecase.execute(data);
 

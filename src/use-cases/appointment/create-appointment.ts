@@ -1,39 +1,48 @@
-import { Appointment } from "../../entities/appointment/appointment";
+import { UserRepository } from "../../repositories/users-repository";
 import { AppointmentRepository } from "../../repositories/appointments-repository";
-
-export interface CreateAppointmentRequest {
-  customer: string;
-  startsAt: Date;
-  endsAt: Date;
-}
-
-type CreateAppointmentResponse = Appointment;
+import { Appointment } from "../../entities/appointment/appointment";
 
 export class CreateAppointment {
-  constructor(private appointmentRepository: AppointmentRepository) {}
+  constructor(
+    private readonly appointmentRepository: AppointmentRepository,
+    private readonly userRepository: UserRepository
+  ) {}
 
   async execute({
-    customer,
+    customerId,
+    barberId,
     startsAt,
     endsAt,
-  }: CreateAppointmentRequest): Promise<CreateAppointmentResponse> {
-    const overLappingAppointment =
-      await this.appointmentRepository.findOverlappingAppointment(
-        startsAt,
-        endsAt
-      );
+  }: {
+    customerId: string;
+    barberId: string;
+    startsAt: string;
+    endsAt: string;
+  }): Promise<void> {
+    console.log(
+      "CreateAppointment: customerId:",
+      customerId,
+      "barberId:",
+      barberId
+    );
 
-    if (overLappingAppointment) {
-      throw new Error("Another appointment overlaps this appointment dates");
+    const customer = await this.userRepository.findById(customerId);
+    const barber = await this.userRepository.findById(barberId);
+
+    console.log("Found customer:", customer);
+    console.log("Found barber:", barber);
+
+    if (!customer || !barber) {
+      throw new Error("Customer or barber not found");
     }
+
     const appointment = new Appointment({
       customer,
-      startsAt,
-      endsAt,
+      barber,
+      startsAt: new Date(startsAt),
+      endsAt: new Date(endsAt),
     });
 
     await this.appointmentRepository.create(appointment);
-
-    return appointment;
   }
 }

@@ -1,12 +1,15 @@
 import { Router } from "express";
 import { CreateAppointmentFactory } from "factory/appointment/CreateAppointmentFactory";
 import { InMemoryAppointmentsRepository } from "repositories/in-memory/in-memory-appointments";
+import { InMemoryUsersRepository } from "repositories/in-memory/in-memory-user";
 
 export const createAppointmentRoutes = (
-  appointmentRepository: InMemoryAppointmentsRepository
+  appointmentRepository: InMemoryAppointmentsRepository,
+  userRepository: InMemoryUsersRepository
 ) => {
   const createAppointmentController = CreateAppointmentFactory(
-    appointmentRepository
+    appointmentRepository,
+    userRepository
   );
   const router = Router();
 
