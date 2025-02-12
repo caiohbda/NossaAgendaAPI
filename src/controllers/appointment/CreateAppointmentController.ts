@@ -11,8 +11,6 @@ export class CreateAppointmentController {
     const { customerId, barberId, startsAt, endsAt } =
       req.body as CreateAppointmentRequest;
 
-    console.log("Received data:", { customerId, barberId, startsAt, endsAt });
-
     const data = { customerId, barberId, startsAt, endsAt };
 
     await this.usecase.execute(data);

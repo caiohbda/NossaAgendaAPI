@@ -51,7 +51,7 @@ export class Appointment {
       throw new Error("Invalid end date");
     }
 
-    if (customer.role !== "user") {
+    if (customer.role !== "client") {
       throw new Error("The customer must have the role 'user'");
     }
 
