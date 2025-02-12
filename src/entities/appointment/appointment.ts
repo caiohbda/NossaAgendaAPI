@@ -1,21 +1,21 @@
-import { randomUUID } from 'node:crypto'
+import { randomUUID } from "node:crypto";
 
 export interface AppointmentProps {
+  id: string;
   customer: string;
   startsAt: Date;
   endsAt: Date;
 }
 
 export class Appointment {
-  private props: AppointmentProps;
-  private _id: string;
+  private readonly props: AppointmentProps;
 
   get customer() {
     return this.props.customer;
   }
 
-  get id() {
-    return this._id;
+  get id(): string {
+    return this.props.id;
   }
 
   get startsAt() {
@@ -26,7 +26,7 @@ export class Appointment {
     return this.props.endsAt;
   }
 
-  constructor(props: AppointmentProps) {
+  constructor(props: Omit<AppointmentProps, "id">) {
     const { startsAt, endsAt } = props;
 
     if (startsAt <= new Date()) {
@@ -36,7 +36,6 @@ export class Appointment {
     if (endsAt <= startsAt) {
       throw new Error("invalid date");
     }
-    this.props = props;
-    this._id = randomUUID();
+    this.props = { id: randomUUID(), ...props };
   }
 }

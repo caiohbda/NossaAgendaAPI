@@ -6,8 +6,12 @@ import { InMemoryUsersRepository } from "../../../repositories/in-memory/in-memo
 import { deleteUserRoutes } from "infra/routes/users/delete-user-routes";
 import { findUserByIdRoutes } from "infra/routes/users/find-by-id-routes";
 import { updateUserRoutes } from "infra/routes/users/update-user-routes";
+import { InMemoryAppointmentsRepository } from "repositories/in-memory/in-memory-appointments";
+import { createAppointmentRoutes } from "infra/routes/appointments/create-appointment-routes";
+import { getAllAppointmentsRoutes } from "infra/routes/appointments/get-all-appointments";
 
 const userRepository = new InMemoryUsersRepository();
+const appointmentRepository = new InMemoryAppointmentsRepository();
 
 const app = express();
 
@@ -17,6 +21,9 @@ app.use("/users", getUsersRoutes(userRepository));
 app.use("/users", deleteUserRoutes(userRepository));
 app.use("/users", findUserByIdRoutes(userRepository));
 app.use("/users", updateUserRoutes(userRepository));
+
+app.use("/appointment", createAppointmentRoutes(appointmentRepository));
+app.use("/appointment", getAllAppointmentsRoutes(appointmentRepository));
 
 const PORT = 5000;
 

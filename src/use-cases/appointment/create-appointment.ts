@@ -1,7 +1,7 @@
 import { Appointment } from "../../entities/appointment/appointment";
 import { AppointmentRepository } from "../../repositories/appointments-repository";
 
-interface CreateAppointmentRequest {
+export interface CreateAppointmentRequest {
   customer: string;
   startsAt: Date;
   endsAt: Date;

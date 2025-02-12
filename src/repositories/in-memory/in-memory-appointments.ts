@@ -10,6 +10,10 @@ export class InMemoryAppointmentsRepository implements AppointmentRepository {
     this.items.push(appointment);
   }
 
+  async getAll(): Promise<Appointment[]> {
+    return this.items;
+  }
+
   async findOverlappingAppointment(
     startsAt: Date,
     endsAt: Date
