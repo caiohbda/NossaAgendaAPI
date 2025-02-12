@@ -25,6 +25,8 @@ export class CreateAppointment {
   }: CreateAppointmentRequest): Promise<CreateAppointmentResponse> {
     const customer = await this.userRepository.findById(customerId);
     const barber = await this.userRepository.findById(barberId);
+    console.log("Customer found:", customer);
+    console.log("Barber found:", barber);
 
     if (customer === undefined) {
       throw new Error("Customer not found");
@@ -32,14 +34,6 @@ export class CreateAppointment {
 
     if (barber === undefined) {
       throw new Error("Barber not found");
-    }
-
-    if (customer.role !== "client") {
-      throw new Error("The customer must have the role 'client'");
-    }
-
-    if (barber.role !== "barber") {
-      throw new Error("The barber must have the role 'barber'");
     }
 
     const overLappingAppointment =

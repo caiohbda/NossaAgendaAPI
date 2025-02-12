@@ -35,14 +35,6 @@ export class Appointment {
   constructor(props: Omit<AppointmentProps, "id">) {
     const { startsAt, endsAt, customer, barber } = props;
 
-    if (!(customer instanceof User)) {
-      throw new Error("Invalid customer: Must be a valid 'User' instance.");
-    }
-
-    if (!(barber instanceof User)) {
-      throw new Error("Invalid barber: Must be a valid 'User' instance.");
-    }
-
     if (startsAt <= new Date()) {
       throw new Error("Invalid start date");
     }

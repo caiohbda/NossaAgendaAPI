@@ -9,6 +9,8 @@ import { updateUserRoutes } from "infra/routes/users/update-user-routes";
 import { InMemoryAppointmentsRepository } from "repositories/in-memory/in-memory-appointments";
 import { createAppointmentRoutes } from "infra/routes/appointments/create-appointment-routes";
 import { getAllAppointmentsRoutes } from "infra/routes/appointments/get-all-appointments";
+import { deleteAppointmentRoutes } from "infra/routes/appointments/delete-appointment-routes";
+import { findUserByIdAppointmentRoutes } from "infra/routes/appointments/find-by-id-appointment-routes";
 
 const userRepository = new InMemoryUsersRepository();
 const appointmentRepository = new InMemoryAppointmentsRepository();
@@ -27,6 +29,8 @@ app.use(
   createAppointmentRoutes(appointmentRepository, userRepository)
 );
 app.use("/appointment", getAllAppointmentsRoutes(appointmentRepository));
+app.use("/appointment", deleteAppointmentRoutes(appointmentRepository));
+app.use("/appointment", findUserByIdAppointmentRoutes(appointmentRepository));
 
 const PORT = 5000;
 

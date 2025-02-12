@@ -1,6 +1,9 @@
 import { areIntervalsOverlapping } from "date-fns";
 
-import { Appointment } from "../../entities/appointment/appointment";
+import {
+  Appointment,
+  AppointmentProps,
+} from "../../entities/appointment/appointment";
 import { AppointmentRepository } from "../appointments-repository";
 
 export class InMemoryAppointmentsRepository implements AppointmentRepository {
@@ -12,6 +15,43 @@ export class InMemoryAppointmentsRepository implements AppointmentRepository {
 
   async getAll(): Promise<Appointment[]> {
     return this.items;
+  }
+
+  async delete(id: string): Promise<void> {
+    const index = this.items.findIndex((appointment) => appointment.id === id);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+    }
+  }
+
+  async update(
+    id: string,
+    appointmentData: Partial<Omit<AppointmentProps, "id">>
+  ): Promise<Appointment | undefined> {
+    const appointment = this.items.find((appointment) => appointment.id === id);
+    if (!appointment) {
+      return undefined;
+    }
+
+    const updatedAppointmentProps: AppointmentProps = {
+      id: appointment.id,
+      barber: appointmentData.barber ?? appointment.customer,
+      customer: appointmentData.customer ?? appointment.customer,
+      startsAt: appointmentData.startsAt ?? appointment.startsAt,
+      endsAt: appointmentData.endsAt ?? appointment.endsAt,
+    };
+
+    const updatedAppointment = new Appointment(updatedAppointmentProps);
+
+    const index = this.items.findIndex((appointment) => appointment.id === id);
+    this.items[index] = updatedAppointment;
+
+    return updatedAppointment;
+  }
+
+  async findById(id: string): Promise<Appointment | undefined> {
+    const appointment = this.items.find((appointment) => appointment.id === id);
+    return appointment;
   }
 
   async findOverlappingAppointment(
